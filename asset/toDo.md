@@ -20,7 +20,6 @@ Podés ir marcando con `[x]` lo que ya esté completado.
 - [ ] Permitir subir foto de perfil opcional (JPG, PNG).  
 - [ ] Guardar usuario en base de datos.  
 - [ ] Redirigir a inicio de sesión tras registrarse.  
-
 ---
 
 ## 👤 Usuario
