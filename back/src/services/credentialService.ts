@@ -1,32 +1,25 @@
-import { Credential, credentials } from '../models/credential';
+import { Credential } from '../models/credential';
+import { pool } from '../config/database';
 
 export class CredentialService {
   static async createCredential(username: string, password: string): Promise<Credential> {
-
-    const existingCredential = credentials.find(cred => cred.username === username);
-    if (existingCredential) {
-      throw new Error('Username already exists');
-    }
-
-    const newCredential: Credential = {
-      id: credentials.length + 1,
-      username,
-      password
-    };
-    
-    credentials.push(newCredential);
-    return newCredential;
+    const result = await pool.query(
+      'INSERT INTO credentials (username, password) VALUES ($1, $2) RETURNING *',
+      [username, password]
+    );
+    return result.rows[0];
   }
 
-  static validateCredential(username: string, password: string): number | null {
-  const credential = credentials.find(cred => 
-    cred.username === username && cred.password === password
-  );
-  
-  return credential ? credential.id : null;
-}
+  static async validateCredential(username: string, password: string): Promise<number | null> {
+    const result = await pool.query(
+      'SELECT id FROM credentials WHERE username = $1 AND password = $2',
+      [username, password]
+    );
+    return result.rows[0]?.id || null;
+  }
 
   static async getCredentialById(id: number): Promise<Credential | undefined> {
-    return credentials.find(cred => cred.id === id);
+    const result = await pool.query('SELECT * FROM credentials WHERE id = $1', [id]);
+    return result.rows[0];
   }
 }

@@ -1,37 +1,30 @@
-import { Appointment, appointments } from '../models/appointment';
-import { User, users } from '../models/user';
+import { Appointment } from '../models/appointment';
+import { pool } from '../config/database';
 
 export class AppointmentService {
-  static getAllAppointments(): Appointment[] {
-    return appointments;
+  static async getAllAppointments(): Promise<Appointment[]> {
+    const result = await pool.query('SELECT * FROM appointments');
+    return result.rows;
   }
 
-  static getAppointmentById(id: number): Appointment | undefined {
-    return appointments.find(appointment => appointment.id === id);
+  static async getAppointmentById(id: number): Promise<Appointment | undefined> {
+    const result = await pool.query('SELECT * FROM appointments WHERE id = $1', [id]);
+    return result.rows[0];
   }
 
-  static scheduleAppointment(appointmentData: Omit<Appointment, 'id' | 'status'>): Appointment {
-
-    const userExists = users.some(user => user.id === appointmentData.userId);
-    if (!userExists) {
-      throw new Error('User not found');
-    }
-
-    const newAppointment: Appointment = {
-      id: appointments.length + 1,
-      ...appointmentData,
-      status: 'active'
-    };
-    
-    appointments.push(newAppointment);
-    return newAppointment;
+  static async scheduleAppointment(appointmentData: Omit<Appointment, 'id' | 'status'>): Promise<Appointment> {
+    const result = await pool.query(
+      `INSERT INTO appointments (date, time, userId, status) VALUES ($1, $2, $3, 'active') RETURNING *`,
+      [appointmentData.date, appointmentData.time, appointmentData.userId]
+    );
+    return result.rows[0];
   }
 
-  static cancelAppointment(id: number): Appointment | undefined {
-    const appointment = appointments.find(app => app.id === id);
-    if (appointment) {
-      appointment.status = 'cancelled';
-    }
-    return appointment;
+  static async cancelAppointment(id: number): Promise<Appointment | undefined> {
+    const result = await pool.query(
+      'UPDATE appointments SET status = $1 WHERE id = $2 RETURNING *',
+      ['cancelled', id]
+    );
+    return result.rows[0];
   }
 }
