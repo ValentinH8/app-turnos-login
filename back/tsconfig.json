@@ -9,10 +9,12 @@
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",
     "target": "es2020",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
 
     "types": ["node"],
     // For nodejs:
-    // "lib": ["esnext"],
+    "lib": ["ES6"],
     // "types": ["node"],
     // and npm install -D @types/node
     "esModuleInterop": true,
@@ -24,7 +26,7 @@
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    //"exactOptionalPropertyTypes": true,
 
     // Style Options
     // "noImplicitReturns": true,
@@ -35,7 +37,7 @@
     // "noPropertyAccessFromIndexSignature": true,
 
     // Recommended Options
-    "strict": true,
+    "strict": false,
     // "jsx": "react-jsx",
     // "verbatimModuleSyntax": true,
     // "isolatedModules": true,
@@ -43,11 +45,11 @@
     // "moduleDetection": "force",
     "skipLibCheck": true,
     "noImplicitAny": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
 
     // extra
     "removeComments": true,
   }, 
-  "include": ["./src/**/*.ts"],
+    "include": ["./src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

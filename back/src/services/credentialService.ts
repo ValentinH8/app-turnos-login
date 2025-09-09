@@ -1,25 +1,22 @@
-import { Credential } from '../models/credential';
-import { pool } from '../config/database';
+import { AppDataSource } from "../config/data-source";
+import { Credential } from "../entities/Credential";
 
 export class CredentialService {
-  static async createCredential(username: string, password: string): Promise<Credential> {
-    const result = await pool.query(
-      'INSERT INTO credentials (username, password) VALUES ($1, $2) RETURNING *',
-      [username, password]
-    );
-    return result.rows[0];
-  }
+    private static credentialRepository = AppDataSource.getRepository(Credential);
 
-  static async validateCredential(username: string, password: string): Promise<number | null> {
-    const result = await pool.query(
-      'SELECT id FROM credentials WHERE username = $1 AND password = $2',
-      [username, password]
-    );
-    return result.rows[0]?.id || null;
-  }
+    static async createCredential(username: string, password: string): Promise<Credential> {
+        const credential = this.credentialRepository.create({ username, password });
+        return await this.credentialRepository.save(credential);
+    }
 
-  static async getCredentialById(id: number): Promise<Credential | undefined> {
-    const result = await pool.query('SELECT * FROM credentials WHERE id = $1', [id]);
-    return result.rows[0];
-  }
+    static async validateCredential(username: string, password: string): Promise<number | null> {
+        const credential = await this.credentialRepository.findOne({
+            where: { username, password }
+        });
+        return credential ? credential.id : null;
+    }
+
+    static async getCredentialById(id: number): Promise<Credential | null> {
+        return await this.credentialRepository.findOneBy({ id });
+    }
 }
