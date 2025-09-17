@@ -34,7 +34,19 @@ export const registerUser = async (req: Request, res: Response) => {
     );
     res.status(201).json(newUser);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    if (error.message.includes('duplicada')) {
+      if (error.message.includes('username')) {
+        res.status(400).json({ error: 'El nombre de usuario ya existe' });
+      } else if (error.message.includes('email')) {
+        res.status(400).json({ error: 'El email ya está registrado' });
+      } else if (error.message.includes('nDni')) {
+        res.status(400).json({ error: 'El DNI ya está registrado' });
+      } else {
+        res.status(400).json({ error: 'Datos duplicados' });
+      }
+    } else {
+      res.status(400).json({ error: error.message });
+    }
   }
 };
 

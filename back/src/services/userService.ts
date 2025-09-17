@@ -17,12 +17,12 @@ export class UserService {
     try {
       await client.query('BEGIN');
       const credentialResult = await client.query(
-        'INSERT INTO credentials (username, password) VALUES ($1, $2) RETURNING id',
+        'INSERT INTO "Credentials" (username, password) VALUES ($1, $2) RETURNING id',
         [username, password]
       );
       const credentialId = credentialResult.rows[0].id;
       const userResult = await client.query(
-        `INSERT INTO users (name, email, birthdate, nDni, credentialsId) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+        `INSERT INTO users (name, email, birthdate, "nDni", "credentialsId") VALUES ($1, $2, $3, $4, $5) RETURNING *`,
         [userData.name, userData.email, userData.birthdate, userData.nDni, credentialId]
       );
       await client.query('COMMIT');
@@ -37,12 +37,12 @@ export class UserService {
 
   static async loginUser(username: string, password: string): Promise<User | null> {
     const credentialResult = await pool.query(
-      'SELECT id FROM credentials WHERE username = $1 AND password = $2',
+      'SELECT id FROM "Credentials" WHERE username = $1 AND password = $2',
       [username, password]
     );
     if (credentialResult.rows.length === 0) return null;
     const userResult = await pool.query(
-      'SELECT * FROM users WHERE credentialsId = $1',
+      'SELECT * FROM users WHERE "credentialsId" = $1', 
       [credentialResult.rows[0].id]
     );
     return userResult.rows[0] || null;

@@ -12,7 +12,7 @@
   id_empleado: number;
   nombre: string;
   apellido: string;
-  especialidad: string;
+  especialidad: string;git add
   horario_inicio: string; //date o time
   horario_fin: string; //date o time
 

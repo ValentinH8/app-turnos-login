@@ -1,4 +1,4 @@
-import { Appointment } from '../models/appointment';
+import { Appointment } from '../models/Appointment';
 import { pool } from '../config/database';
 
 export class AppointmentService {

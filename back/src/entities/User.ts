@@ -1,9 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
-import { Credential } from "./Credential"; // Importar Credential con mayúscula
-import { Appointment } from "./Appointment"; // Importar Appointment con mayúscula
+import { Credential } from "./Credential";
+import { Appointment } from "./Appointment";
 
-
-@Entity( {name: "users"})
+@Entity({name: "users"})
 export class User {
     @PrimaryGeneratedColumn()
     id!: number;
@@ -20,10 +19,10 @@ export class User {
     @Column()
     nDni!: string;
 
-    @OneToOne(() => Credential)
+    @OneToOne(() => Credential, credential => credential.user) 
     @JoinColumn()
     credentials!: Credential;
 
-    @OneToMany(() => Appointment, (appointment) => appointment.user)
+    @OneToMany(() => Appointment, appointment => appointment.user)
     appointments!: Appointment[];
 }
