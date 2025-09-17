@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Turno from "../../components/Turnos/Turno";
-import ImagenesSlider from "../../components/imagenes/imagenes.jsx";
+
 import CrearTurno from "../../components/CrearTurno/CrearTurno";
 
 const MisTurnos = () => {
@@ -13,7 +13,6 @@ const MisTurnos = () => {
   const fetchTurnos = async () => {
     try {
       const res = await axios.get("http://localhost:3001/turns/");
-      // Filtramos para que muestre solo turnos del usuario y que no estén cancelados
       const userTurnos = res.data.filter(
         (turno) => turno.userid === userId && turno.status !== "cancelled"
       );
@@ -38,7 +37,6 @@ const MisTurnos = () => {
 
   return (
     <div>
-      <ImagenesSlider />
       <CrearTurno userId={userId} onTurnoCreado={fetchTurnos} />
       {turnosState.length > 0 ? (
         turnosState.map((turno) => (

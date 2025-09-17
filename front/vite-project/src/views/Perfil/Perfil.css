@@ -1,0 +1,21 @@
+.perfil-container {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.perfil-datos p {
+  margin: 0.5rem 0;
+}
+
+.perfil-historial {
+  list-style: none;
+  padding: 0;
+}
+
+.perfil-historial li {
+  margin: 0.3rem 0;
+  padding: 0.5rem;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+}

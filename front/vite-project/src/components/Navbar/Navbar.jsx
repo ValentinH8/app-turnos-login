@@ -22,22 +22,25 @@ const Navbar = () => {
 
   return (
     <nav>
-  <div>Henry Peluquería</div>
-  <ul>
-    <li><Link to="/">INICIO</Link></li>
-    <li><Link to="/misturnos">TURNOS</Link></li>
-  </ul>
-  <section className='container'>
-    {user ? (
-      <>
-        <span>{user.name} (ID: {user.id})</span>
-        <button onClick={handleLogout}>Cerrar Sesión</button>
-      </>
-    ) : (
-      <button onClick={() => navigate('/login')}>Iniciar Sesión</button>
-    )}
-  </section>
-</nav>
+      <div>Henry Peluquería</div>
+      <ul>
+        <li><Link to="/">INICIO</Link></li>
+        <li><Link to="/misturnos">TURNOS</Link></li>
+      </ul>
+      <section className='container'>
+        {user ? (
+          <>
+            <Link to="/perfil">
+              <button>{user.name} (ID: {user.id})</button>
+            </Link>
+
+            <button onClick={handleLogout}>Cerrar Sesión</button>
+          </>
+        ) : (
+          <button onClick={() => navigate('/login')}>Iniciar Sesión</button>
+        )}
+      </section>
+    </nav>
 
   );
 };

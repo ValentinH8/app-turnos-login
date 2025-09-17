@@ -6,16 +6,20 @@ import MisTurnos from './views/MisTurnos/MisTurnos.jsx';
 import Register from './views/Register/Register.jsx';
 import Login from './views/Login/Login.jsx';
 import About from './views/About/About.jsx'
+import Perfil from './views/Perfil/Perfil.jsx';
 
 function App() {
   return (
     <div>
       <Navbar />
+      <Home />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<></>} />
+
         <Route path="/misturnos" element={<MisTurnos />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/perfil" element={<Perfil />} />
         
       </Routes>
       <About />
