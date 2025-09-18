@@ -4,14 +4,14 @@ nav {
   background-color: #333;
   padding: 1rem 2rem;
   gap: 1rem;
-  justify-content: space-between; /* Distribuye los 3 bloques */
+  justify-content: space-between;
 }
 
 nav > div {
   color: white;
   font-weight: bold;
   font-size: 1.2rem;
-  flex: 1; /* Para que tome espacio en la izquierda */
+  flex: 1;
 }
 
 nav ul {
@@ -20,8 +20,8 @@ nav ul {
   gap: 1.5rem;
   margin: 0;
   padding: 0;
-  flex: 1; /* Centro */
-  justify-content: center; /* Centra el menú */
+  flex: 1;
+  justify-content: center;
 }
 
 nav ul li a {

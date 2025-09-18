@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   username: "postgres",
   password: '!"#valentin',
   database: "turnos_db",
-  entities: [User, Appointment, Credential], //[User, Credential, Appointment].
+  entities: [User, Appointment, Credential], //[User, Credential, Appointment]//
   synchronize: true,
   logging: true,
   extra: {
