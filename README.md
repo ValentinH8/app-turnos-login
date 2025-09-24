@@ -50,7 +50,7 @@ Este proyecto es el backend de una aplicación completa para la gestión de turn
 - **SQL**: `PostgreSQL` (reemplazar por la base de datos que uses).
 - **TypeORM**: ORM (Object-Relational Mapper) para la gestión de la base de datos de forma fácil y eficiente.
 - **JWT**: Para la autenticación segura de usuarios.
-- **Docker**: Contenedorización para facilitar el despliegue del proyecto.
+
 
 ## 🛠️ Cómo Instalar y Ejecutar el Proyecto
 
